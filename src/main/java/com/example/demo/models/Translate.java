@@ -9,7 +9,7 @@ import java.util.HashSet;
 import java.util.Set;
 
 @Data
-@Table("translates")
+@Table("TRANSLATES")
 public class Translate {
     @Id
     long id;

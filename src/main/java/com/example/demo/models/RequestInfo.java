@@ -6,7 +6,7 @@ import org.springframework.data.annotation.Id;
 import org.springframework.data.relational.core.mapping.Table;
 
 @Data
-@Table("requests_info")
+@Table("REQUESTS_INFO")
 public class RequestInfo {
     @Id
     long id;

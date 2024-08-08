@@ -1,3 +1,9 @@
+create table requests_info(
+    id integer not null AUTO_INCREMENT,
+    ip varchar(15) not null unique ,
+    primary key (id)
+);
+
 create table translates(
    id integer PRIMARY KEY auto_increment,
    ip_id varchar not null references requests_info(ip),
@@ -7,8 +13,3 @@ create table translates(
    output_language varchar not null
 );
 
-create table requests_info(
-    id integer not null AUTO_INCREMENT,
-    ip varchar(15) not null unique ,
-    primary key (id),
-);
