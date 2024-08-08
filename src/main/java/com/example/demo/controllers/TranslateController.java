@@ -1,5 +1,4 @@
 package com.example.demo.controllers;
-
 import com.example.demo.messages.TranslateRequest;
 import com.example.demo.services.TranslatorService;
 import jakarta.servlet.http.HttpServletRequest;
@@ -7,7 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
-public class TranslateController {
+public class TranslateController extends BaseController {
 
     @Autowired
     TranslatorService translatorService;

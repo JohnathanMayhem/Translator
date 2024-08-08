@@ -1,9 +1,6 @@
 package com.example.demo.services;
 
-import com.example.demo.models.RequestInfo;
-import com.example.demo.models.RequestInfoRepo;
-import com.example.demo.models.Translate;
-import com.example.demo.models.TranslatesRepo;
+import com.example.demo.models.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.scheduling.annotation.Async;
@@ -40,6 +37,9 @@ public class TranslatorService {
     }
 
     public String translate(String ip, String text, String fromLang, String toLang) {
+        if (!(LanguageUtil.isValidLanguage(fromLang) && LanguageUtil.isValidLanguage(toLang))) {
+            throw new NoSuchLanguageException("Illegal language");
+        }
         List<String> words = Arrays.asList(text.split(" "));
         List<CompletableFuture<String>> translatedWords = words.stream()
                 .map(word -> translateWordAsync(word, fromLang, toLang))
@@ -49,7 +49,9 @@ public class TranslatorService {
                 .map(CompletableFuture::join)
                 .collect(Collectors.joining(" "));
 
-        requestInfoRepo.save(new RequestInfo(ip));
+        if (!requestInfoRepo.existsByIp(ip)){
+            requestInfoRepo.save(new RequestInfo(ip));
+        }
         translatesRepo.save(new Translate(ip, text, translatedText, fromLang, toLang));
         return translatedText;
     }
