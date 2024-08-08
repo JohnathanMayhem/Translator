@@ -5,7 +5,7 @@ create table translates(
    output_text varchar not null,
    input_language varchar not null,
    output_language varchar not null
-)
+);
 
 create table requests_info(
     id integer not null AUTO_INCREMENT,
